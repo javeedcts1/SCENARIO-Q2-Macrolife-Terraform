@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'windows-latest'
 
 steps:
 - task: PublishPipelineArtifact@1
@@ -15,13 +15,6 @@ steps:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'drop'
     publishLocation: 'pipeline'
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      ls $(System.DefaultWorkingDirectory)
-      echo $(System.DefaultWorkingDirectory)
-      echo '####'
 - task: TerraformInstaller@0
   inputs:
     terraformVersion: '0.13.5'
@@ -42,11 +35,11 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    commandOptions: '-var-file=$(System.DefaultWorkingDirectory)/Terraform.tfvars'
+    commandOptions: '-var-file=$(System.DefaultWorkingDirectory)\Terraform.tfvars'
     environmentServiceNameAzureRM: 'spnq1'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    commandOptions: '--auto-approve -var-file=$(System.DefaultWorkingDirectory)/Terraform.tfvars'
+    commandOptions: '--auto-approve -var-file=$(System.DefaultWorkingDirectory)\Terraform.tfvars'
     environmentServiceNameAzureRM: 'spnq1'
