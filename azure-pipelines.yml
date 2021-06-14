@@ -15,5 +15,30 @@ steps:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'drop'
     publishLocation: 'pipeline'
-
-# I deployed resources through release pipeline, which are not part of azure-pipelines.yml file. Details of steps are refered in document SCENARIO-Q2-Terraform-V2.pdf.
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'ls $(System.DefaultWorkingDirectory)'
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: '0.12.3'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: 'spnq1'
+    backendAzureRmResourceGroupName: 'Terraform_res'
+    backendAzureRmStorageAccountName: 'macrolifestorageacc'
+    backendAzureRmContainerName: 'terraform'
+    backendAzureRmKey: 'terraform.tfstate'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    environmentServiceNameAzureRM: 'spnq1'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    commandOptions: '--auto-approve'
+    environmentServiceNameAzureRM: 'spnq1'
