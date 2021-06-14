@@ -3,7 +3,7 @@ Vnet_Name = "MacroLife-vnet"
 Vnet_addressspace = ["10.0.0.0/16"]
 Timezone = "Pacific Standard Time"
 
-storageaccountname = "macrolifestorageacc"
+storageaccountname = "macrolifestorageacc001"
 
 #####Key vault details are hardcoded in Terraform.tf file
 
