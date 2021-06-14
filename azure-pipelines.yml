@@ -18,7 +18,10 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'ls $(System.DefaultWorkingDirectory)'
+    script: |
+      ls $(System.DefaultWorkingDirectory)
+      echo $(System.DefaultWorkingDirectory)
+      echo '####'
 - task: TerraformInstaller@0
   inputs:
     terraformVersion: '0.12.3'
@@ -36,6 +39,10 @@ steps:
     provider: 'azurerm'
     command: 'plan'
     environmentServiceNameAzureRM: 'spnq1'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
