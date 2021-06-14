@@ -42,11 +42,11 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    commandOptions: '-var-file=$(System.DefaultWorkingDirectory)\Terraform.tfvars'
+    commandOptions: '-var-file=$(System.DefaultWorkingDirectory)/Terraform.tfvars'
     environmentServiceNameAzureRM: 'spnq1'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    commandOptions: '--auto-approve -var-file=$(System.DefaultWorkingDirectory)\Terraform.tfvars'
+    commandOptions: '--auto-approve -var-file=$(System.DefaultWorkingDirectory)/Terraform.tfvars'
     environmentServiceNameAzureRM: 'spnq1'
