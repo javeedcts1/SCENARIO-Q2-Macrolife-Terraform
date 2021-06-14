@@ -24,7 +24,7 @@ steps:
       echo '####'
 - task: TerraformInstaller@0
   inputs:
-    terraformVersion: '0.12.3'
+    terraformVersion: '0.13.5'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
@@ -37,12 +37,12 @@ steps:
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
-    command: 'plan'
-    environmentServiceNameAzureRM: 'spnq1'
+    command: 'validate'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
-    command: 'validate'
+    command: 'plan'
+    environmentServiceNameAzureRM: 'spnq1'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
